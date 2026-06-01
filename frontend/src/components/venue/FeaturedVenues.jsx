@@ -1,28 +1,6 @@
 import VenueCard from "./VenueCard";
+import { venues } from "../../data/venues";
 
-const venues = [
-  {
-    id: 1,
-    name: "Grand Auditorium",
-    location: "Trivandrum",
-    price: 25000,
-    image: "https://picsum.photos/400/250?1"
-  },
-  {
-    id: 2,
-    name: "Royal Convention Center",
-    location: "Kochi",
-    price: 40000,
-    image: "https://picsum.photos/400/250?2"
-  },
-  {
-    id: 3,
-    name: "City Event Hall",
-    location: "Calicut",
-    price: 18000,
-    image: "https://picsum.photos/400/250?3"
-  }
-];
 
 function FeaturedVenues() {
   return (
