@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String ,ForeignKey,Date
 from database import Base
 
 
@@ -14,3 +14,4 @@ class Venue(Base):
     image = Column(String)
     description = Column(String)
     
+
