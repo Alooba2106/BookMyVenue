@@ -13,4 +13,5 @@ class Booking(Base):
      event_date= Column(Date)
      guests=Column(Integer)
      advance_amount= Column(Integer)
+     slot_id = Column(Integer, ForeignKey("slots.id"))
      booking_status= Column(String(50),default="pending")
