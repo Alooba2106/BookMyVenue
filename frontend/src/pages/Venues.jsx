@@ -1,42 +1,61 @@
-import { useState } from "react";
-import { venues } from "../data/venues";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import VenueCard from "../components/venue/VenueCard";
 
-function Venues(){
+function Venues() {
+  const [venues, setVenues] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [searchTerm,setSearchTerm] = useState("");
-  const filteredVenues = venues.filter((venue)=>
-    venue.name.toLowerCase().includes(searchTerm.toLowerCase())||
-    venue.location.toLowerCase().includes(searchTerm.toLowerCase()));
+  const [searchParams] = useSearchParams();
 
-    return(
-       <section className="max-w-7xl mx-auto px-6 py-10">
+  useEffect(() => {
+    const searchFromUrl = searchParams.get("search") || "";
+    setSearchTerm(searchFromUrl);
+  }, [searchParams]);
+
+  useEffect(() => {
+    async function fetchVenues() {
+      const response = await fetch("http://localhost:8000/venues");
+      const data = await response.json();
+      setVenues(data);
+    }
+
+    fetchVenues();
+  }, []);
+
+  const filteredVenues = venues.filter((venue) => {
+    const search = searchTerm.toLowerCase();
+
+    return (
+      venue.name.toLowerCase().includes(search) ||
+      venue.location.toLowerCase().includes(search) ||
+      venue.category?.toLowerCase().includes(search)
+    );
+  });
+
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-10">
       <h1 className="text-3xl font-bold mb-6">Explore Venues</h1>
 
       <input
         type="text"
         placeholder="Search venues..."
         value={searchTerm}
-        onChange={(event) => setSearchTerm(event.target.value)}
-        className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-8 
-focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full md:w-96 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
       />
-       {filteredVenues.length>0?(
-        <div className="grid md:grid-cols-3 gap-6">
-        {filteredVenues.map((venue) => (
-          <VenueCard key={venue.id} venue={venue} />
-        ))}
-      </div>
-       ) : (
-        <p className="text-gray-500">No venues found</p>
-       )}
-       
-      </section>
-    );
 
-
+      {filteredVenues.length > 0 ? (
+        <div className="grid md:grid-cols-3 gap-6 mt-6">
+          {filteredVenues.map((venue) => (
+            <VenueCard key={venue.id} venue={venue} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500 mt-6">No venues found</p>
+      )}
+    </section>
+  );
 }
-
-
 
 export default Venues;

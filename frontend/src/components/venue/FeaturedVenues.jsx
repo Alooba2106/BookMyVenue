@@ -1,24 +1,34 @@
+import { useEffect, useState } from "react";
 import VenueCard from "./VenueCard";
-import { venues } from "../../data/venues";
-
 
 function FeaturedVenues() {
-  return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
+  const [venues, setVenues] = useState([]);
 
-      <h2 className="text-3xl font-bold text-center mb-10">
+  useEffect(() => {
+    async function fetchVenues() {
+      const response = await fetch("http://localhost:8000/venues");
+      const data = await response.json();
+      setVenues(data.slice(0, 6));
+    }
+
+    fetchVenues();
+  }, []);
+
+  return (
+      <section className="max-w-7xl mx-auto px-6 py-6">
+      <h2 className="text-xl font-bold text-center mb-6">
         Featured Venues
       </h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {venues.map((venue) => (
-          <VenueCard
-            key={venue.id}
-            venue={venue}
-          />
-        ))}
-      </div>
-
+      {venues.length > 0 ? (
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          {venues.map((venue) => (
+            <VenueCard key={venue.id} venue={venue} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-500">No venues found</p>
+      )}
     </section>
   );
 }
