@@ -78,7 +78,7 @@ function MyBookings() {
 
     setBookings((prevBookings) =>
       prevBookings.map((booking) =>
-        booking.id === bookingId
+        booking.booking_id === bookingId
           ? { ...booking, booking_status: "cancelled" }
           : booking
       )
@@ -109,7 +109,7 @@ function MyBookings() {
         <div className="grid gap-6">
           {bookings.map((booking) => (
             <div
-              key={booking.id}
+              key={booking.booking_id}
               className="bg-white rounded-2xl shadow-md p-6 border border-gray-100"
             >
               <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
@@ -149,7 +149,7 @@ function MyBookings() {
 
                   {booking.booking_status !== "cancelled" && (
                     <button
-                      onClick={() => handleCancel(booking.id)}
+                      onClick={() => handleCancel(booking.booking_id)}
                       className="rounded-xl bg-red-600 px-5 py-2.5 font-semibold text-white hover:bg-red-700 transition"
                     >
                       Cancel Booking

@@ -38,7 +38,27 @@ function OwnerAddVenuePage() {
         slot_template: slotTemplate,
       }),
     });
+    if (
+  !name.trim() ||
+  !location.trim() ||
+  !category.trim() ||
+  !image.trim() ||
+  !amenities.trim() ||
+  !description.trim()
+) {
+  alert("All fields are required");
+  return;
+}
 
+if (price <= 0) {
+  alert("Price must be greater than 0");
+  return;
+}
+
+if (capacity <= 0) {
+  alert("Capacity must be greater than 0");
+  return;
+}
     if (response.ok) {
       alert("Venue added successfully");
       navigate("/owner/venues");

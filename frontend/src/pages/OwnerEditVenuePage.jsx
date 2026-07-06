@@ -32,41 +32,42 @@ function OwnerEditVenuePage() {
     fetchVenue();
   }, [venueId]);
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+ async function handleSubmit(event) {
+  event.preventDefault();
 
-    const ownerId = localStorage.getItem("ownerId");
+  const ownerId = localStorage.getItem("ownerId");
 
-    const response = await fetch(
-      `http://localhost:8000/owners/${ownerId}/venues/${venueId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          owner_id: Number(ownerId),
-          name,
-          location,
-          category,
-          amenities,
-          price: Number(price),
-          capacity: Number(capacity),
-          status: true,
-          image,
-          description,
-        }),
-      }
-    );
+  const updatedVenue = {
+    name: name.trim(),
+    location: location.trim(),
+    category,
+    price: Number(price),
+    capacity: Number(capacity),
+    image: image.trim(),
+    amenities: amenities.trim(),
+    description: description.trim(),
+  };
 
-    if (response.ok) {
-      alert("Venue updated successfully");
-      navigate("/owner/venues");
-    } else {
-      alert("Failed to update venue");
+  const response = await fetch(
+    `http://localhost:8000/owners/${ownerId}/venues/${venueId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedVenue),
     }
-  }
+  );
 
+  if (response.ok) {
+    alert("Venue updated successfully");
+    navigate("/owner/venues");
+  } else {
+    const error = await response.json();
+    console.log(error);
+    alert("Failed to update venue");
+  }
+}
   return (
     <section className="min-h-screen bg-gray-50 px-6 py-10">
       <div className="max-w-4xl mx-auto">

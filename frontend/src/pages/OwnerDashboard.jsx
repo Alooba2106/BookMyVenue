@@ -1,14 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 
 function OwnerDashboard() {
-  const navigate = useNavigate();
+  
 
-  function handleLogout() {
-    localStorage.removeItem("ownerToken");
-    localStorage.removeItem("ownerId");
-    navigate("/owner/login");
-  }
-
+ 
   return (
     <section className="min-h-screen bg-gray-50 px-6 py-10">
       <div className="max-w-6xl mx-auto">
@@ -66,14 +61,7 @@ function OwnerDashboard() {
           </Link>
         </div>
 
-        <div className="mt-10">
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition"
-          >
-            Logout
-          </button>
-        </div>
+        
       </div>
     </section>
   );

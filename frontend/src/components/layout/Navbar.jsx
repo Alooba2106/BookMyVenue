@@ -3,21 +3,22 @@ import { useState } from "react";
 import logo from "../../assets/logo.webp";
 
 function Navbar() {
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const navigate = useNavigate();
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const userToken = localStorage.getItem("token");
+  const ownerToken = localStorage.getItem("ownerToken");
 
   function handleLogout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    alert("Logged out successfully");
+    localStorage.removeItem("ownerToken");
+    localStorage.removeItem("ownerId");
+
     navigate("/");
     window.location.reload();
   }
 
-  return (
+ return (
     <>
       <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -38,20 +39,28 @@ function Navbar() {
               Home
             </Link>
 
-            <Link to="/venues" className="hover:text-red-600 transition">
-              Venues
-            </Link>
+            {!ownerToken && (
+              <Link to="/venues" className="hover:text-red-600 transition">
+                Venues
+              </Link>
+            )}
 
-            {token && role === "user" && (
-              <Link
-                to="/my-bookings"
-                className="hover:text-red-600 transition"
-              >
+            {userToken && (
+              <Link to="/my-bookings" className="hover:text-red-600 transition">
                 My Bookings
               </Link>
             )}
 
-            {!token ? (
+            {ownerToken && (
+              <Link
+                to="/owner/dashboard"
+                className="hover:text-red-600 transition"
+              >
+                Owner Dashboard
+              </Link>
+            )}
+
+            {!userToken && !ownerToken ? (
               <button
                 onClick={() => setShowLoginPopup(true)}
                 className="bg-red-600 text-white px-5 py-2 rounded-xl hover:bg-red-700 transition shadow-sm"

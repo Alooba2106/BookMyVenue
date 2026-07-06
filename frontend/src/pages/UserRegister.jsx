@@ -11,7 +11,7 @@ function UserRegister() {
   async function handleRegister(e) {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8000/users", {
+    const response = await fetch("http://localhost:8000/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

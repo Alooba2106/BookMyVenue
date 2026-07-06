@@ -100,53 +100,62 @@ function BookingForm() {
   }
 
   const options = {
-    key: orderData.key,
-    amount: orderData.amount,
-    currency: orderData.currency,
-    name: "BookMyVenue",
-    description: "Venue Booking Advance Payment",
-    order_id: orderData.order_id,
+  key: orderData.key,
+  amount: orderData.amount,
+  currency: orderData.currency,
+  name: "BookMyVenue",
+  description: "Venue Booking Advance Payment",
+  order_id: orderData.order_id,
 
-    prefill: {
-      name: name,
-      email: email,
-      contact: phone,
+  prefill: {
+    name: name,
+    email: email,
+    contact: phone,
+  },
+
+  theme: {
+    color: "#dc2626",
+  },
+
+  handler: async function (response) {
+  console.log("Payment success response:", response);
+  console.log("Calling verify-payment...");
+
+  const verifyResponse = await fetch("http://localhost:8000/verify-payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({
+      razorpay_payment_id: response.razorpay_payment_id,
+      razorpay_order_id: response.razorpay_order_id,
+      razorpay_signature: response.razorpay_signature,
+      venue_id: Number(venueId),
+      event_date: formattedDate,
+      guests: Number(guests),
+      amount: 5000,
+      slot_id: Number(selectedSlotId),
+    }),
+  });
 
-    theme: {
-      color: "#dc2626",
-    },
+  const data = await verifyResponse.json();
 
-    handler: async function (response) {
-      const bookingResponse = await fetch("http://localhost:8000/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          ...bookingData,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_signature: response.razorpay_signature,
-        }),
-      });
+  console.log("Verify status:", verifyResponse.status);
+  console.log("Verify data:", data);
 
-      const bookingResult = await bookingResponse.json();
+ if (verifyResponse.ok) {
+  alert("Booking confirmed!");
+  navigate("/booking-success");
+} else {
+    alert(data.detail || "Payment verification failed");
+  }
+},
+};
 
-      if (!bookingResponse.ok) {
-        alert(bookingResult.detail || "Booking failed after payment");
-        return;
-      }
-
-      setBookingConfirmed(true);
-    },
-  };
-
-  const razorpay = new window.Razorpay(options);
-  razorpay.open();
-}
-
+const razorpay = new window.Razorpay(options);
+razorpay.open();
+ }
   return (
     <section className="min-h-screen bg-gray-50 px-6 py-10">
       <div className="max-w-4xl mx-auto">
@@ -281,5 +290,4 @@ function BookingForm() {
     </section>
   );
 }
-
 export default BookingForm;

@@ -16,6 +16,8 @@ import OwnerEditVenuePage from "../pages/OwnerEditVenuePage";
 import OwnerBookingsPage from "../pages/OwnerBookingsPage";
 import UserLogin from "../pages/UserLogin";
 import MyBookings from "../pages/MyBookings";
+import BookingSuccess from "../pages/BookingSuccess";
+import ManageSlotsPage from "../pages/ManageSlotsPage";
 import NotFound from "../pages/NotFound";
 function AppRoutes() {
   return (
@@ -34,9 +36,9 @@ function AppRoutes() {
       <Route path="/owner/edit-venue/:venueId" element={<OwnerEditVenuePage />} />
       <Route path="/owner/bookings" element={<OwnerBookingsPage />} />
       <Route path="/bookings/:venueId" element={<BookingForm />} />
-      
+      <Route path="/booking-success" element={<BookingSuccess />} />
       <Route path="/register" element={<UserRegister />} />
-
+      <Route path="/owner/venues/:venueId/slots" element={<ManageSlotsPage />}/>
       <Route path="/my-bookings" element={<MyBookings />} />
        <Route path="*" element={<NotFound />} />
     </Routes>
