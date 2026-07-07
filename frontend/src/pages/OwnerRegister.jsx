@@ -11,7 +11,7 @@ function OwnerRegister() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:8000/owners", {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/owners`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

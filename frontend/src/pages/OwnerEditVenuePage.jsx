@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+
 function OwnerEditVenuePage() {
   const { venueId } = useParams();
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function OwnerEditVenuePage() {
 
   useEffect(() => {
     async function fetchVenue() {
-      const response = await fetch(`http://localhost:8000/venues/${venueId}`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/venues/${venueId}`);
       const data = await response.json();
 
       setName(data.name || "");
@@ -49,7 +50,7 @@ function OwnerEditVenuePage() {
   };
 
   const response = await fetch(
-    `http://localhost:8000/owners/${ownerId}/venues/${venueId}`,
+    `${import.meta.env.VITE_API_BASE_URL}/owners/${ownerId}/venues/${venueId}`,
     {
       method: "PUT",
       headers: {

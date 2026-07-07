@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+
 function ManageSlotsPage() {
   const { venueId } = useParams();
 
@@ -10,7 +11,7 @@ function ManageSlotsPage() {
   const [endTime, setEndTime] = useState("");
 
   async function fetchSlots() {
-    const response = await fetch(`http://localhost:8000/venues/${venueId}/slots`);
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/venues/${venueId}/slots`);
     const data = await response.json();
     setSlots(data);
   }
@@ -39,7 +40,7 @@ function ManageSlotsPage() {
       end_time: endTime,
     };
 
-    const response = await fetch("http://localhost:8000/slots", {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/slots`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

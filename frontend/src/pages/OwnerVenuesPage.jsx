@@ -10,7 +10,7 @@ function OwnerVenuesPage() {
       const ownerId = localStorage.getItem("ownerId");
 
       const response = await fetch(
-        `http://localhost:8000/owners/${ownerId}/venues`
+        `${import.meta.env.VITE_API_BASE_URL}/owners/${ownerId}/venues`
       );
 
       const data = await response.json();
@@ -30,7 +30,7 @@ function OwnerVenuesPage() {
     const ownerId = localStorage.getItem("ownerId");
 
     const response = await fetch(
-      `http://localhost:8000/owners/${ownerId}/venues/${venueId}`,
+      `${import.meta.env.VITE_API_BASE_URL}/owners/${ownerId}/venues/${venueId}`,
       {
         method: "DELETE",
       }

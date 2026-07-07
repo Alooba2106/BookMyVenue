@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function AdminDashboard() {
   const [venues, setVenues] = useState([]);
   const [bookings, setBookings] = useState([]);
@@ -17,21 +18,21 @@ function AdminDashboard() {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/venues")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/venues`)
       .then((res) => res.json())
       .then((data) => setVenues(data));
 
-    fetch("http://127.0.0.1:8000/owners/pending")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/owners/pending`)
       .then((res) => res.json())
       .then((data) => setOwners(data));
 
-    fetch("http://127.0.0.1:8000/bookings")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/bookings`)
       .then((res) => res.json())
       .then((data) => setBookings(data));
   }, [navigate]);
 
   function approveOwner(id) {
-    fetch(`http://127.0.0.1:8000/owners/${id}/approve`, {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/${id}/approve`, {
       method: "PUT",
     })
       .then((res) => res.json())

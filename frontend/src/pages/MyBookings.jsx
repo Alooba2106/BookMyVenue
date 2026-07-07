@@ -15,7 +15,7 @@ function MyBookings() {
         return;
       }
 
-      const response = await fetch("http://localhost:8000/my-bookings", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/my-bookings`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ function MyBookings() {
     }
 
     const response = await fetch(
-      `http://localhost:8000/bookings/${bookingId}/cancel`,
+      `${import.meta.env.VITE_API_BASE_URL}/bookings/${bookingId}/cancel`,
       {
         method: "PUT",
         headers: {

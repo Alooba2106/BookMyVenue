@@ -10,7 +10,7 @@ function OwnerLoginPage() {
   async function handleLogin(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:8000/owners/login", {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/owners/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

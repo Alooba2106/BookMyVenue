@@ -8,7 +8,7 @@ function OwnerBookingsPage() {
       const ownerId = localStorage.getItem("ownerId");
 
       const response = await fetch(
-        `http://localhost:8000/owners/${ownerId}/bookings`
+        `${import.meta.env.VITE_API_BASE_URL}/owners/${ownerId}/bookings`
       );
 
       const data = await response.json();

@@ -19,7 +19,7 @@ function OwnerAddVenuePage() {
 
     const ownerId = localStorage.getItem("ownerId");
 
-    const response = await fetch("http://localhost:8000/venues", {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/venues`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import VenueCard from "../components/venue/VenueCard";
 
+
+
 function Venues() {
   const [venues, setVenues] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +17,7 @@ function Venues() {
 
   useEffect(() => {
     async function fetchVenues() {
-      const response = await fetch("http://localhost:8000/venues");
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/venues`);
       const data = await response.json();
       setVenues(data);
     }

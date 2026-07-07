@@ -1,13 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
 function VenueDetails() {
   const { id } = useParams();
   const [venue, setVenue] = useState(null);
 
   useEffect(() => {
     async function fetchVenue() {
-      const response = await fetch(`http://localhost:8000/venues/${id}`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/venues/${id}`);
       const data = await response.json();
       setVenue(data);
     }

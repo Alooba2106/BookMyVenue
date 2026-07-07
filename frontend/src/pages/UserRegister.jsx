@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../api";
 
 function UserRegister() {
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ function UserRegister() {
   async function handleRegister(e) {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8000/users/register", {
+    const response = await fetch(`${API_URL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

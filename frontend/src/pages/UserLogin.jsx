@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +16,7 @@ function UserLogin() {
     formData.append("password", password);
 
     const response = await fetch(
-      "http://localhost:8000/users/login",
+      `${import.meta.env.VITE_API_BASE_URL}/users/login`,
       {
         method: "POST",
         headers: {

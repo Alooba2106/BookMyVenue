@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import VenueCard from "./VenueCard";
 
+
+
 function FeaturedVenues() {
   const [venues, setVenues] = useState([]);
 
   useEffect(() => {
     async function fetchVenues() {
-      const response = await fetch("http://localhost:8000/venues");
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/venues`);
       const data = await response.json();
       setVenues(data.slice(0, 6));
     }

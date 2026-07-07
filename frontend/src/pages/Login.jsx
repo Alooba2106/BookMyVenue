@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +14,7 @@ function Login() {
     formData.append("username", email);
     formData.append("password", password);
 
-   fetch("http://127.0.0.1:8000/users/login", {
+   fetch(`${import.meta.env.VITE_API_BASE_URL}/users/login`, {
   method: "POST",
   body: formData,
 })

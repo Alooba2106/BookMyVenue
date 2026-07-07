@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+
 function BookingForm() {
   const { venueId } = useParams();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function BookingForm() {
   useEffect(() => {
     async function fetchBlockedDates() {
       const response = await fetch(
-        `http://localhost:8000/venues/${venueId}/blocked-dates`
+        `${import.meta.env.VITE_API_BASE_URL}/${venueId}/blocked-dates`
       );
       const data = await response.json();
       setBlockedDates(data.map((item) => new Date(item.blocked_date)));
@@ -40,7 +41,7 @@ function BookingForm() {
 
     async function fetchSlots() {
       const response = await fetch(
-        `http://localhost:8000/venues/${venueId}/slots-with-status?event_date=${formattedDate}`
+        `${import.meta.env.VITE_API_BASE_URL}/${venueId}/slots-with-status?event_date=${formattedDate}`
       );
       const data = await response.json();
       setSlots(data);
@@ -81,7 +82,7 @@ function BookingForm() {
     advance_amount: 5000,
   };
 
-  const orderResponse = await fetch("http://localhost:8000/payments/create-order", {
+  const orderResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/payments/create-order`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -121,7 +122,7 @@ function BookingForm() {
   console.log("Payment success response:", response);
   console.log("Calling verify-payment...");
 
-  const verifyResponse = await fetch("http://localhost:8000/verify-payment", {
+  const verifyResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/verify-payment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
