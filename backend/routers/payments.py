@@ -10,11 +10,15 @@ from auth import get_db, get_current_user
 from models.user import User
 from models.booking import Booking
 from schemas import PaymentOrderCreate, VerifyPaymentRequest
+import os
 
 router = APIRouter(tags=["Payments"])
 
-RAZORPAY_KEY_ID = "rzp_test_T7rqnM98YWZ5z8"
-RAZORPAY_KEY_SECRET = "P0ZbNDRqRl59NxjUxj65ZV4K"
+
+
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_SECRET")
+
 
 razorpay_client = razorpay.Client(
     auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET)

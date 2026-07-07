@@ -8,8 +8,10 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 from models.user import User
 from models.owner import Owner
+import os
 
-SECRET_KEY = "bookmyvenue_secret_key"
+SECRET_KEY = os.getenv("SECRET_KEY")
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

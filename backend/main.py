@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -9,17 +13,22 @@ from routers import blocked_dates
 from routers import payments
 from routers import admin
 from routers import users
+from database import engine, Base
+
 
 app = FastAPI()
+Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://your-frontend-url.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 app.include_router(owners.router)
 app.include_router(users.router)
 app.include_router(bookings.router)
