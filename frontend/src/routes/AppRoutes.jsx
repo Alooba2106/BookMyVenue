@@ -18,7 +18,6 @@ import UserLogin from "../pages/UserLogin";
 import MyBookings from "../pages/MyBookings";
 import BookingSuccess from "../pages/BookingSuccess";
 import ManageSlotsPage from "../pages/ManageSlotsPage";
-import Footer from "./components/Footer";
 import NotFound from "../pages/NotFound";
 function AppRoutes() {
   return (
