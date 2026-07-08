@@ -23,7 +23,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-         "https://book-my-venue-4vj9sqn4v-alooba.vercel.app",
+    
+         "https://book-my-venue-2v9wfh0uw-alooba.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
