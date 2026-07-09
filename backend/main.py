@@ -25,6 +25,7 @@ app.add_middleware(
         "http://localhost:5173",
     
          "https://book-my-venue-2v9wfh0uw-alooba.vercel.app",
+         "https://book-my-venue-cz3cooio8-alooba.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
